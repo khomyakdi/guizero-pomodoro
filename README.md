@@ -1,14 +1,7 @@
 Timer Pomodoro app
-With:
-- timer counter
-- reset button
-- 25 min button
-- 5 min button
-- 15 min button
-- pomodoro period counter
 
 -------------------------------
-|25:00               4 (reset)|   
+|25                  4 (RST)|   
 |                             |   
 |       (25) (05) (15)        |   
 -------------------------------
