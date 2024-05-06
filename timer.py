@@ -1,9 +1,14 @@
 from guizero import App, Text, PushButton, Box
+from gpiozero import CPUTemperature
 
 SEC = 60
 
 timer_running = False
 should_count = True
+
+def update_temp():
+    cpu_temp = str(CPUTemperature().temperature);
+    temp_text.value =  cpu_temp + "'C"
 
 def reset_counter():
     counter_text.value = 0
@@ -19,6 +24,8 @@ def stop_timer():
     if(should_count):
         counter_text.value = int(counter_text.value) + 1
         should_count = False
+
+cpu = CPUTemperature()
 
 def reduce_time():
     val = int(timer_text.value)
@@ -54,7 +61,11 @@ def timer15():
 
 app = App(title="Timer", width=300, height=150)
 
-timer_box = Box(app, width="fill", align="top", )
+temp_box = Box(app, width="fill", align="top")
+temp_text = Text(temp_box, align="right", text=str(cpu.temperature) + "'C", size=20)
+temp_text.repeat(5* 60 *1000, update_temp)
+
+timer_box = Box(app, width="fill", align="top")
 timer_text = Text(timer_box, align="left", text="0", size=40)
 
 counter_box = Box(timer_box, align="right")
